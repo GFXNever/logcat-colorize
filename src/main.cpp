@@ -4,8 +4,9 @@
 #include <argparse/argparse.hpp>
 #include <nlohmann/json.hpp>
 
-#include "logcat/LogcatParser.h"
 #include "Printer.h"
+#include "filter/FilterFactory.h"
+#include "logcat/LogcatParser.h"
 
 argparse::ArgumentParser parseArgs(int argc, const char** argv) {
     argparse::ArgumentParser args(argv[0], VERSION);
@@ -17,6 +18,7 @@ argparse::ArgumentParser parseArgs(int argc, const char** argv) {
             jsonFile >> json;
             return json;
         });
+
     try {
         args.parse_args(argc, argv);
     } catch (const std::runtime_error& error) {
@@ -31,6 +33,8 @@ argparse::ArgumentParser parseArgs(int argc, const char** argv) {
 int main(int argc, const char** argv) {
     auto args = parseArgs(argc, argv);
 
+    // Set up resources
+    auto filter = FilterFactory::create(args);
     Printer printer;
 
     for (std::string line; std::getline(std::cin, line); ) {
