@@ -1,0 +1,17 @@
+{
+  "mode": "or",
+  "filters": [
+    {
+      "tag": [
+        { "pattern": "DisplayPolicy.*" },
+        { "pattern": "Activitythread", "mode": "exact" },
+        { "pattern": "wallpapermanagerservice", "mode": "exact", "caseInsensitive": true }
+      ]
+    },
+    {
+      "message": [
+        { "pattern": "SIGABRT" }
+      ]
+    }
+  ]
+}
