@@ -7,7 +7,20 @@
 #include "logcat/LogcatParser.h"
 #include "Printer.h"
 
+argparse::ArgumentParser parseArgs(int argc, const char** argv) {
+    argparse::ArgumentParser args(argv[0], VERSION);
+    try {
+        args.parse_args(argc, argv);
+    } catch (const std::runtime_error& error) {
+        std::cerr << "Failed to parse command line arguments: " << error.what() << std::endl;
+        std::cerr << args << std::endl;
+        ::exit(-1);
+    }
+}
+
 int main(int argc, const char** argv) {
+    auto args = parseArgs(argc, argv);
+
     Printer printer;
 
     for (std::string line; std::getline(std::cin, line); ) {
