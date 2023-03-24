@@ -9,6 +9,14 @@
 
 argparse::ArgumentParser parseArgs(int argc, const char** argv) {
     argparse::ArgumentParser args(argv[0], VERSION);
+    args.add_argument("-f", "--filter")
+        .help("Path to a filter file")
+        .action([](const std::string& path) {
+           std::ifstream jsonFile(path);
+           nlohmann::json json;
+            jsonFile >> json;
+            return json;
+        });
     try {
         args.parse_args(argc, argv);
     } catch (const std::runtime_error& error) {
