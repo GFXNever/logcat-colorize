@@ -12,11 +12,17 @@ argparse::ArgumentParser parseArgs(int argc, const char** argv) {
     argparse::ArgumentParser args(argv[0], VERSION);
     args.add_argument("-f", "--filter")
         .help("Path to a filter file")
-        .action([](const std::string& path) {
-           std::ifstream jsonFile(path);
-           nlohmann::json json;
-            jsonFile >> json;
-            return json;
+        .action([&](const std::string& path) {
+            try {
+                std::ifstream jsonFile(path);
+                nlohmann::json json;
+                jsonFile >> json;
+                return json;
+            } catch (const std::exception& e) {
+                std::cerr << "Invalid json file:" << e.what() << std::endl;
+                std::cerr << args << std::endl;
+                ::exit(-1);
+            }
         });
 
     try {
@@ -40,7 +46,9 @@ int main(int argc, const char** argv) {
     for (std::string line; std::getline(std::cin, line); ) {
         auto entry = LogcatParser::parseLine(line);
         if (entry) {
-            printer.printFormatted(*entry);
+            if (!filter || filter->pass(*entry)) {
+                printer.printFormatted(*entry);
+            }
         } else {
             printer.printLine(line);
         }
