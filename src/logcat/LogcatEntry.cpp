@@ -23,3 +23,23 @@ LogTimestamp LogTimestamp::from(const std::string& timestampStr) {
 
     return result;
 }
+
+LogLevel logLevelFromString(const std::string& string) {
+    if (string == "verbose") {
+        return LogLevel::Verbose;
+    } else if (string == "debug") {
+        return LogLevel::Debug;
+    } else if (string == "info") {
+        return LogLevel::Info;
+    } else if (string == "warning") {
+        return LogLevel::Warning;
+    } else if (string == "error") {
+        return LogLevel::Error;
+    } else if (string == "fatal") {
+        return LogLevel::Fatal;
+    } else if (string == "silent") {
+        return LogLevel::Silent;
+    }
+
+    throw std::runtime_error("Invalid log level string");
+}

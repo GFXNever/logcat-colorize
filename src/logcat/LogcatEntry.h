@@ -25,6 +25,8 @@ enum class LogLevel {
     Silent
 };
 
+LogLevel logLevelFromString(const std::string& string);
+
 struct LogcatEntry {
     LogTimestamp timestamp;
     pid_t pid;
