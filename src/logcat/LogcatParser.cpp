@@ -24,23 +24,9 @@ std::optional<LogcatEntry> LogcatParser::parseLine(const std::string_view& line)
 
 LogTimestamp LogcatParser::consumeTimestamp(std::string& line) {
     constexpr static auto TIMESTAMP_PATTERN = "^[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{3}";
-    constexpr static auto TIMESTAMP_FORMAT = "%d-%d %d:%d:%d.%3d";
 
     auto timestampStr = consumeRegex(line, TIMESTAMP_PATTERN);
-
-    LogTimestamp result {};
-    int month, day, hour, minute, second;
-    ::sscanf(timestampStr.c_str(), TIMESTAMP_FORMAT, &month, &day, &hour, &minute, &second, &result.milliseconds);
-
-    result.time = {
-            .tm_sec = second,
-            .tm_min = minute,
-            .tm_hour = hour,
-            .tm_mday = day,
-            .tm_mon = month,
-    };
-
-    return result;
+    return LogTimestamp::from(timestampStr);
 }
 
 pid_t LogcatParser::consumePid(std::string& line) {

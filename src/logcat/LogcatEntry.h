@@ -11,6 +11,8 @@ using pid_t = unsigned;
 struct LogTimestamp {
     std::tm time;
     int milliseconds;
+
+    static LogTimestamp from(const std::string& timestampStr);
 };
 
 enum class LogLevel {
