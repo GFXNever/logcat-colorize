@@ -16,6 +16,8 @@ argparse::ArgumentParser parseArgs(int argc, const char** argv) {
         std::cerr << args << std::endl;
         ::exit(-1);
     }
+
+    return args;
 }
 
 int main(int argc, const char** argv) {
