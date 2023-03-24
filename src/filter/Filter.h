@@ -4,11 +4,16 @@
 
 #include "logcat/LogcatEntry.h"
 
+#include "filter/matchers/Matcher.h"
+
 class Filter {
 public:
-    explicit Filter(const nlohmann::json& filterScheme);
+    explicit Filter(std::shared_ptr<Matcher> matcher);
     ~Filter() = default;
 
 public:
-    bool pass(const LogcatEntry& entry) const;
+    [[nodiscard]] bool pass(const LogcatEntry& entry) const;
+
+private:
+    std::shared_ptr<Matcher> m_matcher;
 };

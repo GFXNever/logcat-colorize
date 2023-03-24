@@ -1,9 +1,11 @@
 #include "Filter.h"
 
-Filter::Filter(const nlohmann::json& filterScheme) {
+#include <utility>
+
+Filter::Filter(std::shared_ptr<Matcher> matcher) : m_matcher(std::move(matcher)) {
 
 }
 
 bool Filter::pass(const LogcatEntry& entry) const {
-    return false;
+    return m_matcher->match(entry);
 }
