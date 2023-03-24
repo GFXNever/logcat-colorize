@@ -48,7 +48,7 @@ bool TimestampMatcher::match(const LogcatEntry& entry) const {
     return std::any_of(m_conditions.begin(), m_conditions.end(), matchOperation);
 }
 
-time_t castTime(std::tm time) {
+std::time_t castTime(std::tm time) {
     return std::mktime(&time);
 }
 
