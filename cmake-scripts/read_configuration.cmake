@@ -1,0 +1,10 @@
+
+function(read_properties)
+    file(STRINGS "project.properties" ConfigContents)
+    foreach(NameAndValue ${ConfigContents})
+        string(REGEX REPLACE "^[ ]+" "" NameAndValue ${NameAndValue})
+        string(REGEX MATCH "^[^=]+" Name ${NameAndValue})
+        string(REPLACE "${Name}=" "" Value ${NameAndValue})
+        set(${Name} "${Value}" PARENT_SCOPE)
+    endforeach()
+endfunction()

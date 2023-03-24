@@ -1,0 +1,9 @@
+[submodule "contrib/json"]
+	path = contrib/json
+	url = git@github.com:nlohmann/json.git
+[submodule "contrib/argparse"]
+	path = contrib/argparse
+	url = git@github.com:p-ranav/argparse.git
+[submodule "contrib/termcolor"]
+	path = contrib/termcolor
+	url = git@github.com:ikalnytskyi/termcolor.git
