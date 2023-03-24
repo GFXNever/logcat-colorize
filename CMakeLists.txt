@@ -3,7 +3,10 @@ include(cmake-scripts/read_configuration.cmake)
 read_properties()
 
 project(${NAME})
+
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -Werror -Wno-missing-field-initializers")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 add_definitions(-DVERSION="${VERSION}")
 
