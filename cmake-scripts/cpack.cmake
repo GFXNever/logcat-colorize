@@ -1,0 +1,11 @@
+
+function(setup_deb_generation)
+    set(CPACK_OUTPUT_FILE_PREFIX ${CMAKE_CURRENT_LIST_DIR}/deb)
+    set(CPACK_GENERATOR "DEB")
+    set(CPACK_PACKAGE_NAME ${NAME})
+    set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Logcat colorizer utility with advanced filtering features")
+    set(CPACK_SET_DESTDIR TRUE)
+    set(CPACK_DEBIAN_PACKAGE_MAINTAINER ${MAINTAINER})
+    set(CPACK_PACKAGE_VERSION ${VERSION})
+    include(CPack)
+endfunction()

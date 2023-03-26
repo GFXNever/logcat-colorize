@@ -23,3 +23,14 @@ add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 target_include_directories(${PROJECT_NAME} PRIVATE src)
 target_link_libraries(${PROJECT_NAME} PRIVATE nlohmann_json::nlohmann_json termcolor::termcolor argparse::argparse)
 
+if(${CMAKE_BUILD_TYPE} MATCHES Release)
+    include(cmake-scripts/cpack.cmake)
+    include(GNUInstallDirs)
+    install(TARGETS ${PROJECT_NAME}
+            EXPORT "${PROJECT_NAME}Targets"
+            COMPONENT ${PROJECT_NAME})
+
+    setup_deb_generation()
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND cpack --config "${CMAKE_CURRENT_BINARY_DIR}/CPackConfig.cmake")
+endif()
+
