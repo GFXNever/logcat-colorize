@@ -16,9 +16,17 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Checkout Submodules
+      uses: textbook/git-checkout-submodule-action@2.1.1
+
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
-
+      
+    - name: Upload Packages
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        path: ${{github.workspace}}/build/deb/*.deb
+      
