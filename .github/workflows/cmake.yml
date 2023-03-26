@@ -15,7 +15,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-
+      with:
+          submodules: recursive
+          
     - name: Checkout Submodules
       uses: textbook/git-checkout-submodule-action@2.1.1
 
